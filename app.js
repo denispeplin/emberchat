@@ -23,8 +23,14 @@ App.MessagesController = Ember.ArrayController.extend({
   actions: {
     create: function() {
       var data = this.getProperties('body');
-      this.set('body', '');
-      this.store.createRecord('message', data);
+      var message = this.store.createRecord('message', data);
+      var self = this;
+      message.save().then(function () {
+        console.log("Record saved");
+        self.set('body', '');
+      }, function (response) {
+        self.set('errors', response.responseJSON.errors);
+      });
     }
   }
 });
@@ -33,9 +39,6 @@ App.Message = DS.Model.extend({
   body: DS.attr('string')
 });
 
-App.Store = DS.Store.extend({
-  adapter: DS.FixtureAdapter
+App.ApplicationAdapter = DS.RESTAdapter.extend({
+  host: 'http://localhost:3000'
 });
-
-App.Message.FIXTURES = [
-]
