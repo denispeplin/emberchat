@@ -4,8 +4,19 @@
 <meta charset="utf-8">
 <title>Ember Chat</title>
   <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+  <link href="app.css" rel="stylesheet">
 </head>
 <body>
+
+  <script type="text/x-handlebars" data-template-name="application">
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span12">
+          {{outlet}}
+        </div>
+      </div>
+    </div>
+  </script>
 
   <script type="text/x-handlebars" data-template-name="messages">
     <ul id="chat">
@@ -15,7 +26,7 @@
     </ul>
 
     <form class="form-inline" {{action create on="submit"}}>
-      {{input value=body type="text"}}
+      {{input class="message_body" value=body type="text"}}
       {{input class="btn" type="submit" value="Post"}}
     </form>
   </script>
