@@ -20,6 +20,13 @@ App.ApplicationController = Ember.Controller.extend({
 });
 
 App.MessagesController = Ember.ArrayController.extend({
+  init: function() {
+    var source = new EventSource('http://localhost:3000/messages/events');
+
+    source.addEventListener('message', function(e) {
+      return alert(e);
+    });
+  },
   actions: {
     create: function() {
       var data = this.getProperties('body');
